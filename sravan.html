@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Detector</title>
+  <style>
+    /* ==== Global Styles ==== */
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5fbfb;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      background: #fff;
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 40px;
+      border-radius: 14px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative shapes */
+    .container::before,
+    .container::after {
+      content: "";
+      position: absolute;
+      background: radial-gradient(circle, #0b726f 40%, transparent 80%);
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      z-index: 0;
+    }
+    .container::before { top: -40px; left: -40px; }
+    .container::after { bottom: -40px; right: -40px; }
+
+    /* Header */
+    header {
+      text-align: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    header h1 {
+      color: #075a57;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .task-info {
+      color: #4b0082;
+      font-weight: bold;
+    }
+
+    /* Input section */
+    .temp-box {
+      margin-top: 30px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    label {
+      font-size: 18px;
+      color: #075a57;
+      font-weight: bold;
+    }
+
+    input {
+      padding: 10px;
+      width: 150px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      outline: none;
+      margin: 10px;
+      text-align: center;
+    }
+
+    select {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      margin: 10px;
+    }
+
+    button {
+      background: #0b726f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #095855;
+    }
+
+    /* Result display */
+    .result {
+      margin-top: 25px;
+      font-size: 20px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      border-top: 2px solid #eaeaea;
+      padding-top: 20px;
+      position: relative;
+      z-index: 2;
+      color: #075a57;
+    }
+
+    footer img {
+      width: 40px;
+      height: 40px;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px;
+      }
+      header h1 {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Temperature Detector</h1>
+      <p class="task-info">TASK - 1 | Basics of Web Development</p>
+    </header>
+
+    <div class="temp-box">
+      <label for="temp">Enter Temperature:</label><br>
+      <input type="number" id="temp" placeholder="Enter value">
+      <select id="unit">
+        <option value="Celsius">Celsius (°C)</option>
+        <option value="Fahrenheit">Fahrenheit (°F)</option>
+      </select><br>
+      <button id="convertBtn">Convert</button>
+
+      <div class="result" id="result"></div>
+    </div>
+
+    <footer>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Wikimedia-logo.png" alt="ApexPlanet Logo">
+      <p><b>ApexPlanet</b> Software Pvt Ltd</p>
+    </footer>
+  </div>
+
+  <script>
+    // JavaScript Logic for Temperature Conversion
+    document.getElementById("convertBtn").addEventListener("click", function() {
+      const tempInput = document.getElementById("temp").value;
+      const unit = document.getElementById("unit").value;
+      const result = document.getElementById("result");
+
+      if (tempInput === "") {
+        result.textContent = "⚠️ Please enter a temperature value!";
+        result.style.color = "red";
+        return;
+      }
+
+      let convertedTemp;
+      let outputText;
+
+      if (unit === "Celsius") {
+        convertedTemp = (tempInput * 9/5) + 32;
+        outputText = `${tempInput}°C = ${convertedTemp.toFixed(2)}°F`;
+      } else {
+        convertedTemp = (tempInput - 32) * 5/9;
+        outputText = `${tempInput}°F = ${convertedTemp.toFixed(2)}°C`;
+      }
+
+      result.textContent = outputText;
+      result.style.color = "#075a57";
+    });
+  </script>
+</body>
+</html>
